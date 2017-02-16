@@ -7,9 +7,9 @@ public class Server {
 	
 	
 	public Server(int id, int size, int capacity, int pool){
-		id = 0;
-		size = 0;
-		capacity = 0;
-		pool = 0;
+		this.id = id;
+		this.size = size;
+		this.capacity = capacity;
+		this.pool = pool;
 	}
 }
