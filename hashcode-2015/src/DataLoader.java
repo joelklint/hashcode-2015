@@ -10,15 +10,26 @@ public class DataLoader {
 		this.servers = servers;
 	}
 
-	public int[][] buildMatrixFirstSolution() {
+	public int buildMatrixFirstSolution() {
 
+		
+		
 		Random r = new Random();
-
+		
+		//Randomly place pools
+		int[] filled = new int[45];
+		for(Server s : servers){
+			int randomPool = r.nextInt(45);
+			filled[randomPool] = 1;
+			s.pool = randomPool;
+		}
+		
+		
 		// Copy servers to temporary server array
 		LinkedList<Server> takenServers = new LinkedList<Server>();
 		int i = 0;
 		for (Server s : servers) {
-			Server serverCopy = new Server(s.id, s.size, s.capacity, s.pool);
+			Server serverCopy = new Server(s.id, s.size, s.capacity, s.pool, -1);
 			takenServers.add(serverCopy);
 			i++;
 		}
@@ -27,12 +38,6 @@ public class DataLoader {
 
 			//Add to each row
 			for (int row = 0; row < 16; row++) {
-
-				// Pop the first server and stick it in matrix
-//				Server currentServer = takenServers.pop();
-//				for (int j = 0; j < currentServer.size; j++) {
-//					rowsAndSlots[row][j] = currentServer.id;
-//				}
 				
 				int nbrOfTries = 0;
 				int slotsLeft = 99;
@@ -44,16 +49,15 @@ public class DataLoader {
 					int randIndex = r.nextInt(takenServers.size() - 1);
 					Server server = takenServers.get(randIndex);
 					
+					
 					// try if the server fits
 					if (server.size < slotsLeft(row, rowIndex)) {
-
+						server.row = row;
 						for (i = rowIndex; i < rowIndex + server.size; i++) {
 							rowsAndSlots[row][i] = server.id;
 						}
 						takenServers.remove(randIndex);
-						rowIndex += server.size;
-						System.out.println(rowsAndSlots[row][rowIndex+1]);
-						
+						rowIndex += server.size;						
 						while (skipNegatives(row, rowIndex)) {
 							rowIndex ++;
 						}
@@ -69,16 +73,18 @@ public class DataLoader {
 				}
 
 			}
-		
 			
-		//Printing array	
-		for (int y = 0; y < rowsAndSlots.length; y++) {
-			for (int j = 0; j < rowsAndSlots[y].length; j++){
-				System.out.print(rowsAndSlots[y][j] + "\t");
+			Pool[] pools = new Pool[45];
+			for(int index = 0; index < pools.length; index++) {
+				pools[index] = new Pool();
 			}
-			System.out.print("\n");
-		}
-		return rowsAndSlots;
+			for(Server server : servers) {
+				pools[server.pool].servers.add(server);
+			}
+					
+		int score = ScoreCalculator.getScore(16, 45, pools);
+		//System.out.println(score);
+		return score;
 	}
 	
 	private int slotsLeft(int row, int col) {

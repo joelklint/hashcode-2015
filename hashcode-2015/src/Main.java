@@ -9,7 +9,22 @@ public class Main {
 		read.readFile();
 		
 		DataLoader dl = new DataLoader(read.unavailable, read.servers);
-		dl.buildMatrixFirstSolution();
-	}
-		
+		int max = 0;
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < 5000; i++) {
+			int score = dl.buildMatrixFirstSolution();
+			if (score > max) {
+				max = score;
+				System.out.println("Got new max: " + max);
+			}
+			if (score < min) {
+				min = score;
+			}
+			if (i % 100 == 0){
+				System.out.println("Iterations: " + i);
+			}
+		}
+		System.out.println("max: " + max);
+		System.out.println("min: " + min);
+	}		
 }
