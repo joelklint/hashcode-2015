@@ -7,6 +7,9 @@ public class Main {
 		File file = new File("./dc.in");
 		Reader read = new Reader(file);
 		read.readFile();
+		
+		DataLoader dl = new DataLoader(read.unavailable, read.servers);
+		dl.buildMatrixFirstSolution();
 	}
 		
 }
