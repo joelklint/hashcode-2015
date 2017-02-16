@@ -8,4 +8,5 @@ public class Main {
 		Reader read = new Reader(file);
 		read.readFile();
 	}
+		
 }
