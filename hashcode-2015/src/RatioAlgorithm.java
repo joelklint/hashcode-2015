@@ -15,6 +15,9 @@ public class RatioAlgorithm {
 		Arrays.sort(servers);
 		//this.servers = (LinkedList<Server>) Arrays.asList(servers);
 		Collections.addAll(this.servers, servers);
+		for(int i = 0; i < 45; i++) {
+			pools[i] = new Pool();
+		}
 		this.serverHall = new ServerHall(reader.unavailable, pools);
 	}
 	
@@ -25,14 +28,42 @@ public class RatioAlgorithm {
 		//	System.out.println(server.ratio);
 		//}
 		
-		//LinkedList<Server> rejected = new LinkedList<Server>();
+		LinkedList<Server> rejected = new LinkedList<Server>();
 		
 		// servers come pre sorted
 		
 		int row = 0;
-		
 		while(!serverHall.full && !servers.isEmpty()) {
-			serverHall.placeServer(servers.pop(), row%16);
+			
+			boolean success = false;
+			while(!success ) {
+				int bellend = 0;
+				Server server = null;
+				try {
+					server = servers.pop();
+				} catch (Exception e) {
+					serverHall.full = true;
+					break;
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+
+				
+				success = serverHall.placeServer(server, row%16);
+				
+				if(!success) {
+					rejected.addLast(server);
+				}
+			}
+			
+			
+			// Server was successfully placed
+			// move rejected back to servers
+			while(!rejected.isEmpty()) {
+				servers.addFirst(rejected.removeLast());
+			}
+			
+			
 			row++;
 		}
 		
@@ -41,7 +72,7 @@ public class RatioAlgorithm {
 		//Pools are placed in serverhall class
 		
 		
-		serverHall.print();
+		//serverHall.print();
 		
 	}
 	//sortera alla servrar efter storlek

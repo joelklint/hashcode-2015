@@ -5,6 +5,7 @@ public class Server implements Comparable<Server> {
 	public int capacity;
 	public int pool;
 	public int ratio;
+	public int row;
 	
 	
 	public Server(int id, int size, int capacity, int pool, int ratio){

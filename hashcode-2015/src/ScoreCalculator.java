@@ -1,6 +1,9 @@
 public class ScoreCalculator {
 	
-	public static int getScore(int rowCount, int poolCount, Pool[] pools) {
+	public static int getScore(Pool[] pools) {
+		
+		int rowCount = 16;
+		int poolCount = 45;
 		
 		int[] lowestPoolCapacity = new int[poolCount];
 		for(int i = 0; i < poolCount; i++) {
