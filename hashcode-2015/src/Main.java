@@ -7,6 +7,10 @@ public class Main {
 		File file = new File("./dc.in");
 		Reader read = new Reader(file);
 		read.readFile();
+		RatioAlgorithm ra = new RatioAlgorithm(read);
+		ra.performAlgorithm();
 	}
 		
+	
+	
 }
