@@ -37,7 +37,7 @@ public class Reader {
 		while(scan.hasNextInt()){
 			size = scan.nextInt();
 			capacity = scan.nextInt();
-			Server newServer = new Server(id, size, capacity, 0, capacity/size);
+			Server newServer = new Server(id, size, capacity, 0, capacity/size, -1);
 			servers[id] = newServer;
 			id++;
 	

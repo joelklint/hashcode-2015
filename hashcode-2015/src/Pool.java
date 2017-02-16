@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 
+
+import java.util.List;
+
 public class Pool {
 	
-	public ArrayList<Server> servers = new ArrayList<Server>();
+	public List<Server> servers;
 	
 	public Pool() {
-		
+		servers = new ArrayList<Server>();
 	}
 	
-	
-
 }
