@@ -54,7 +54,7 @@ public class Main {
 				worstServerHall = Utility.deepCopy(algorithm.getServerHall());
 			}
 			if (i % 1000 == 0){
-				System.out.print("Iteration: " + i / 1000 + "K, ");
+				System.out.print("Iteration: " + i + ", ");
 			}
 		}
 		
@@ -62,9 +62,8 @@ public class Main {
 		System.out.println();
 		System.out.println("Max: " + max);
 		System.out.println("Min: " + min);
+		System.out.println();
 		
 		Utility.print(bestServerHall);
-		System.out.println();
-		Utility.print(worstServerHall);
 	}
 }
