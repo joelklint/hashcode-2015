@@ -5,7 +5,7 @@ public class Main {
 	static final int RANDOM = 0, RATIO = 1, RANDOM_SERVERS = 2;
 	
 	public static void main(String[] args) {
-		new Main().start(RATIO);
+		new Main().start(RANDOM_SERVERS);
 	}
 	
 	private void start(int type) {
@@ -35,7 +35,7 @@ public class Main {
 		}
 		
 		// Perform algorithm
-		int times = 5000;
+		int times = 1;
 		int max = 0;
 		int min = Integer.MAX_VALUE;
 		int[][] bestServerHall = null;
