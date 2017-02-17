@@ -20,12 +20,12 @@ public class ScoreCalculator {
 						poolCapacity += server.capacity;
 					}
 				}
+				
 				if(poolCapacity < lowestPoolCapacity[poolIndex]) {
 					lowestPoolCapacity[poolIndex] = poolCapacity;
 				}
 				
 			}
-			
 		}
 		
 		int lowestCapacity = Integer.MAX_VALUE;
@@ -37,5 +37,4 @@ public class ScoreCalculator {
 		
 		return lowestCapacity;
 	}
-
 }

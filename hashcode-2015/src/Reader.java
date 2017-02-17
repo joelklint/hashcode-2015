@@ -3,15 +3,16 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Reader {
-	public Scanner scan;
-	public int id;
-	public Server server;
+	
 	public Server[] servers;
 	public int[][] unavailable;
-	public int size;
-	public int capacity;
-	public int row;
-	public int col;
+	
+	private Scanner scan;
+	private int id;
+	private int size;
+	private int capacity;
+	private int row;
+	private int col;
 	
 	public Reader(File file){
 		unavailable = new int[16][100];
@@ -43,7 +44,4 @@ public class Reader {
 	
 		}
 	}
-	
-		
-	}
-
+}

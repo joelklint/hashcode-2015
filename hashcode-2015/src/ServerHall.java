@@ -1,5 +1,3 @@
-import javax.sql.RowSetInternal;
-
 public class ServerHall {
 	
 	int[][] serverHall = new int[16][100];
@@ -18,18 +16,14 @@ public class ServerHall {
 		if(full) {
 			return false;
 		}
+		
 		// Is it possible to place?
 		for(int rowIndex = nextIndex[row]; rowIndex < nextIndex[row] + server.size; rowIndex++) {
+			
 			// Prevent index out of bounds
 			if(rowIndex > 99) {
 				return false;
 			}
-			
-			// Mark serverhall as full
-			//if(row == 15 && rowIndex == 99) {
-			//	full = true;
-			//	return false;
-			//}
 			
 			//Jump impossible slots
 			if(serverHall[row][rowIndex] == -1) {
@@ -51,13 +45,7 @@ public class ServerHall {
 		server.pool = this.pool%45;
 		pools[poolIndex%45].servers.add(server);
 		
-		//int rand = (int) (Math.random()*45);
-		//System.out.println(rand);
-		//server.pool = rand;
-		//pools[rand].servers.add(server);
-		
 		poolIndex++;
-		
 		
 		nextIndex[row] += server.size;
 		
@@ -72,5 +60,4 @@ public class ServerHall {
 		    System.out.println();
 		}
 	}
-
 }
