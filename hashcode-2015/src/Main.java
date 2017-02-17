@@ -26,8 +26,10 @@ public class Main {
 			break;
 		case Main.RATIO:
 			algorithm = new RatioAlgorithm(read);
+			break;
 		case Main.RANDOM_SERVERS:
 			algorithm = new RandomServersAlgorithm(read.unavailable, read.servers);
+			break;
 		default:
 			break;
 		}
