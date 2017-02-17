@@ -1,24 +1,23 @@
 import java.util.LinkedList;
 import java.util.Random;
 
-public class RandomAlgorithm extends Algorithm {
+public class RandomServersAlgorithm extends RandomAlgorithm {
 	
-	protected Pool[] pools;
-	protected int[][] rowsAndSlots;
-	protected Server[] servers;
-
-	public RandomAlgorithm(int[][] rowsAndSlots, Server[] servers) {
-		this.rowsAndSlots = rowsAndSlots;
-		this.servers = servers;
+	public RandomServersAlgorithm(int[][] rowsAndSlots, Server[] servers) {
+		super(rowsAndSlots, servers);
 	}
 
+	@Override
 	public void performAlgorithm() {
 		Random r = new Random();
 		
-		// Randomly place pools
+		// Place pools proportional to the server id
 		int[] filled = new int[45];
+		int is = -1;
+		double amount = servers.length;
 		for(Server s : servers){
-			int randomPool = r.nextInt(45);
+			// ------------> This line is the only difference torwards RandomAlgorithm < -------------- //
+			int randomPool = (int)((is++)/amount * 45);
 			filled[randomPool] = 1;
 			s.pool = randomPool;
 		}
@@ -62,7 +61,7 @@ public class RandomAlgorithm extends Algorithm {
 				nbrOfTries++;
 				
 				// We give up trying and skipping to next available space
-				if(nbrOfTries > 2000) {
+				if(nbrOfTries > 100) {
 					rowIndex = skipUntilNegativeEnd(row, rowIndex);
 					nbrOfTries = 0;
 				}
@@ -77,44 +76,5 @@ public class RandomAlgorithm extends Algorithm {
 		for(Server server : servers) {
 			pools[server.pool].servers.add(server);
 		}
-	}
-	
-	protected int slotsLeft(int row, int col) {
-		int slots = 0;
-		for (int i = col; i < 99; i++) {
-			if (rowsAndSlots[row][i] == -1) {
-				break;
-			}
-			slots++;
-		}
-		return slots;
-	}
-	
-	protected boolean skipNegatives(int row, int col) {
-		if (rowsAndSlots[row][col] == -1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	protected int skipUntilNegativeEnd(int row, int rowIndex) {
-		while(rowsAndSlots[row][rowIndex] != -1 && rowIndex < 99) {
-			rowIndex++;
-		}
-		while(rowsAndSlots[row][rowIndex] == -1 && rowIndex < 99) {
-			rowIndex++;
-		}
-		return rowIndex;
-	}
-
-	@Override
-	public Pool[] getPools() {
-		return pools;
-	}
-
-	@Override
-	public int[][] getServerHall() {
-		return rowsAndSlots;
 	}
 }

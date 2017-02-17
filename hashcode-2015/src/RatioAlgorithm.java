@@ -32,7 +32,6 @@ public class RatioAlgorithm extends Algorithm {
 			
 			boolean success = false;
 			while(!success ) {
-				int bellend = 0;
 				Server server = null;
 				try {
 					server = servers.pop();
@@ -70,6 +69,12 @@ public class RatioAlgorithm extends Algorithm {
 	@Override
 	public Pool[] getPools() {
 		return pools;
+	}
+
+
+	@Override
+	public int[][] getServerHall() {
+		return serverHall.rowsAndSlots;
 	}
 	
 	//forloopa servrarna - lägg första på rad 1, går inte det så försök med nästa, dvs. stanna på raden tills vi placerat en server där.

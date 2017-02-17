@@ -1,14 +1,15 @@
 public class ServerHall {
 	
-	int[][] serverHall = new int[16][100];
-	int[] nextIndex = new int[16];
+	public int[][] rowsAndSlots = new int[16][100];
 	public boolean full = false;
 	public int pool = 0;
-	Pool[] pools;
-	int poolIndex = 0;
+	
+	private int[] nextIndex = new int[16];
+	private Pool[] pools;
+	private int poolIndex = 0;
 	
 	public ServerHall(int[][] initial, Pool[] pools) {
-		this.serverHall = initial;
+		this.rowsAndSlots = initial;
 		this.pools = pools;
 	}
 	
@@ -26,18 +27,18 @@ public class ServerHall {
 			}
 			
 			//Jump impossible slots
-			if(serverHall[row][rowIndex] == -1) {
+			if(rowsAndSlots[row][rowIndex] == -1) {
 				nextIndex[row] = rowIndex + 1;
 			}
 			
-			if(serverHall[row][rowIndex] == -1) {
+			if(rowsAndSlots[row][rowIndex] == -1) {
 				return false;
 			}
 		}
 		
 		//Place server
 		for(int rowIndex = nextIndex[row]; rowIndex < nextIndex[row] + server.size; rowIndex++) {
-			serverHall[row][rowIndex] = server.id;
+			rowsAndSlots[row][rowIndex] = server.id;
 		}
 		server.row = row;
 		
@@ -50,14 +51,5 @@ public class ServerHall {
 		nextIndex[row] += server.size;
 		
 		return true;
-	}
-	
-	public void print() {
-		for (int i = 0; i < serverHall.length; i++) {
-		    for (int j = 0; j < serverHall[i].length; j++) {
-		        System.out.print(serverHall[i][j] + " ");
-		    }
-		    System.out.println();
-		}
 	}
 }
